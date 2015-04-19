@@ -23,12 +23,14 @@ namespace KHR_MayFes
     {
         private BoneManager boneManager;
         private ServoManager servoManager;
+        private SerialPortManager serialPortManager;
 
         public MainWindow()
         {
             InitializeComponent();
             boneManager = new BoneManager();
             servoManager = new ServoManager();
+            serialPortManager = new SerialPortManager();
         }
 
         private void SetBody(Body body)
@@ -41,8 +43,7 @@ namespace KHR_MayFes
             servoManager.SetLowerBody();
             //サーボコマンド列を生成
             byte[] cmd = servoManager.generateCommand();
-            
-
+            serialPortManager.sendMessage(cmd);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -54,7 +55,8 @@ namespace KHR_MayFes
 
         private void ConnectButtonClicked(object sender, RoutedEventArgs e)
         {
-             
+            StatusText.Text = "connecting...";
+            StatusText.Text = serialPortManager.Open();
         }
 
 

@@ -43,7 +43,7 @@ namespace KHR_MayFes
     {
         public ServoData(bool dir, int t, int llim, int ulim)
         {
-            destAngle = 0.0;
+            destAngle = 0;
             direction = dir;
             trim = t;
             upperLimit = ulim;
@@ -53,7 +53,7 @@ namespace KHR_MayFes
 
         public ServoData(bool dir, int t, int llim, int ulim, int ofs)
         {
-            destAngle = 0.0;
+            destAngle = 0;
             direction = dir;
             trim = t;
             upperLimit = ulim;
@@ -64,19 +64,35 @@ namespace KHR_MayFes
 
         public ServoData(bool dir, int t)
         {
-            destAngle = 0.0;
+            destAngle = 0;
             direction = dir;
             trim = t;
             upperLimit = 11500;
             lowerLimit = 3500;
         }
 
-        //目標値を設定
-        public void setDest(double d)
+        //弧度法角度によって目標値を設定
+        public void SetDestWithDegree(double d)
+        {
+            int dest;
+            if (direction)
+            {
+                dest = toServoAngle(d);
+            }
+            else
+            {
+                dest = toServoAngle(-d);
+            }
+            destAngle = dest;
+        }
+
+        //サーボ角度によって直接目標値を設定
+        public void SetDestWithServoAngle(int d)
         {
             destAngle = d;
         }
 
+        //degree指定
         public int toServoAngle(double angle)
         {
             //7500のとき0deg            
@@ -94,13 +110,13 @@ namespace KHR_MayFes
             {
                 servoAngle = upperLimit;
             }
-            Debug.WriteLine("servoangle : {0}", servoAngle);
+            //Debug.WriteLine("servoangle : {0}", servoAngle);
 
             return (int)servoAngle; 
         }
 
         public bool direction; //方向の正負
-        public double destAngle; //目標角度 [rad]
+        public int destAngle; //目標角度 [サーボ角度]
         public int trim; //トリム
         public int upperLimit; //上限
         public int lowerLimit; //下限
@@ -136,12 +152,11 @@ namespace KHR_MayFes
             servoDict.Add(ServoTag.RIGHT_ANKLE_PITCH, new ServoData(true, 0));
             servoDict.Add(ServoTag.LEFT_ANKLE_ROLL, new ServoData(true, 0, 7500, 7900));
             servoDict.Add(ServoTag.RIGHT_ANKLE_ROLL, new ServoData(true, 0, 7100, 7500));
-
         }
 
         //二つのBoneの角度として設定できるサーボはこいつで設定する
         private void bonesToServo(BoneTag bone_a, BoneTag bone_b, ServoTag destServo){
-            servoDict[destServo].setDest(Vector3D.AngleBetween(mBoneDict[bone_a], mBoneDict[bone_b]));
+            servoDict[destServo].SetDestWithDegree(Vector3D.AngleBetween(mBoneDict[bone_a], mBoneDict[bone_b]));
         }
 
         /*
@@ -154,6 +169,7 @@ namespace KHR_MayFes
             //首
             Vector3D neckHeadNorm = mBoneDict[BoneTag.NECK_HEAD] - Vector3D.DotProduct(mBoneDict[BoneTag.NECK_HEAD], mBoneDict[BoneTag.SPINE_NECK]) * mBoneDict[BoneTag.SPINE_NECK];
             neckHeadNorm.Normalize();
+            servoDict[ServoTag.NECK].SetDestWithDegree(MathUtil.getAxisAngle(mBoneDict[BoneTag.NECK_HEAD], mBoneDict[BoneTag.SHOULDER_RIGHT_LEFT], mBoneDict[BoneTag.SPINE_NECK]));
             
             //右肘
             bonesToServo(BoneTag.RIGHT_ELBOW_WRIST, BoneTag.RIGHT_SHOULDER_ELBOW, ServoTag.RIGHT_ELBOW);
@@ -161,14 +177,14 @@ namespace KHR_MayFes
             bonesToServo(BoneTag.LEFT_ELBOW_WRIST, BoneTag.LEFT_SHOULDER_ELBOW, ServoTag.LEFT_ELBOW);
 
             //右肩ロール
-            servoDict[ServoTag.RIGHT_SHOULDER_ROLL].setDest(Vector3D.AngleBetween(-mBoneDict[BoneTag.RIGHT_SPINE_SHOULDER], mBoneDict[BoneTag.RIGHT_SHOULDER_ELBOW]) - 90 + servoDict[ServoTag.RIGHT_SHOULDER_ROLL].offset);
+            servoDict[ServoTag.RIGHT_SHOULDER_ROLL].SetDestWithDegree(Vector3D.AngleBetween(-mBoneDict[BoneTag.RIGHT_SPINE_SHOULDER], mBoneDict[BoneTag.RIGHT_SHOULDER_ELBOW]) - 90 + servoDict[ServoTag.RIGHT_SHOULDER_ROLL].offset);
             //左肩ロール
-            servoDict[ServoTag.LEFT_SHOULDER_ROLL].setDest(Vector3D.AngleBetween(-mBoneDict[BoneTag.LEFT_SPINE_SHOULDER], mBoneDict[BoneTag.LEFT_SHOULDER_ELBOW]) - 90 + servoDict[ServoTag.LEFT_SHOULDER_ROLL].offset);
+            servoDict[ServoTag.LEFT_SHOULDER_ROLL].SetDestWithDegree(Vector3D.AngleBetween(-mBoneDict[BoneTag.LEFT_SPINE_SHOULDER], mBoneDict[BoneTag.LEFT_SHOULDER_ELBOW]) - 90 + servoDict[ServoTag.LEFT_SHOULDER_ROLL].offset);
 
             //右肩ピッチ
-            servoDict[ServoTag.RIGHT_SHOULDER_PITCH].setDest(-MathUtil.getAxisAngle(-mBoneDict[BoneTag.RIGHT_SHOULDER_ELBOW], mBoneDict[BoneTag.SPINE_MID_TOP], mBoneDict[BoneTag.RIGHT_SPINE_SHOULDER]));
+            servoDict[ServoTag.RIGHT_SHOULDER_PITCH].SetDestWithDegree(-MathUtil.getAxisAngle(-mBoneDict[BoneTag.RIGHT_SHOULDER_ELBOW], mBoneDict[BoneTag.SPINE_MID_TOP], mBoneDict[BoneTag.RIGHT_SPINE_SHOULDER]));
             //左肩ピッチ
-            servoDict[ServoTag.LEFT_SHOULDER_PITCH].setDest(MathUtil.getAxisAngle(-mBoneDict[BoneTag.LEFT_SHOULDER_ELBOW], mBoneDict[BoneTag.SPINE_MID_TOP], mBoneDict[BoneTag.LEFT_SPINE_SHOULDER]));
+            servoDict[ServoTag.LEFT_SHOULDER_PITCH].SetDestWithDegree(MathUtil.getAxisAngle(-mBoneDict[BoneTag.LEFT_SHOULDER_ELBOW], mBoneDict[BoneTag.SPINE_MID_TOP], mBoneDict[BoneTag.LEFT_SPINE_SHOULDER]));
 
             //右肩ヨー
             Vector3D spineShoulderRightNormalized = mBoneDict[BoneTag.RIGHT_SPINE_SHOULDER];
@@ -179,7 +195,7 @@ namespace KHR_MayFes
             Vector3D elbowWristRightNorm = mBoneDict[BoneTag.RIGHT_ELBOW_WRIST];
             elbowWristRightNorm.Normalize();
             Vector3D normWristRight = elbowWristRightNorm - Vector3D.DotProduct(elbowWristRightNorm, shoulderElbowRightNormalized) * shoulderElbowRightNormalized;
-            servoDict[ServoTag.RIGHT_SHOULDER_YAW].setDest(Vector3D.AngleBetween(normWristRight, normRight) - 90);
+            servoDict[ServoTag.RIGHT_SHOULDER_YAW].SetDestWithDegree(Vector3D.AngleBetween(normWristRight, normRight) - 90);
 
             //左肩ヨー
             Vector3D spineShoulderLeftNormalized = mBoneDict[BoneTag.LEFT_SPINE_SHOULDER];
@@ -190,30 +206,29 @@ namespace KHR_MayFes
             Vector3D elbowWristLeftNorm = mBoneDict[BoneTag.LEFT_ELBOW_WRIST];
             elbowWristLeftNorm.Normalize();
             Vector3D normWristLeft = elbowWristLeftNorm - Vector3D.DotProduct(elbowWristLeftNorm, shoulderElbowLeftNormalized) * shoulderElbowLeftNormalized;
-            servoDict[ServoTag.LEFT_SHOULDER_YAW].setDest(Vector3D.AngleBetween(normWristLeft, normLeft) - 90);
-
-            servoDict[ServoTag.LEFT_HIP_PITCH].setDest(0);
-            servoDict[ServoTag.RIGHT_HIP_PITCH].setDest(0);
-            servoDict[ServoTag.LEFT_HIP_YAW].setDest(0);
-            servoDict[ServoTag.RIGHT_HIP_YAW].setDest(0);
-            servoDict[ServoTag.LEFT_HIP_ROLL].setDest(0);
-            servoDict[ServoTag.RIGHT_HIP_ROLL].setDest(0);
-            servoDict[ServoTag.LEFT_KNEE].setDest(0);
-            servoDict[ServoTag.RIGHT_KNEE].setDest(0);
-            servoDict[ServoTag.LEFT_ANKLE_PITCH].setDest(0);
-            servoDict[ServoTag.RIGHT_ANKLE_PITCH].setDest(0);
-            servoDict[ServoTag.LEFT_ANKLE_ROLL].setDest(0);
-            servoDict[ServoTag.RIGHT_ANKLE_ROLL].setDest(0);
+            servoDict[ServoTag.LEFT_SHOULDER_YAW].SetDestWithDegree(Vector3D.AngleBetween(normWristLeft, normLeft) - 90);
 
         }
 
         /*
          * 下半身の歩行モーションを設定
-         * 
+         * 必ずID10以降のすべてのサーボのdestを指定すること
          */
         public void SetLowerBody()
         {
-            Debug.WriteLine("servo 10 : {0}", servoDict[(ServoTag)10].destAngle);
+            servoDict[ServoTag.WAIST].SetDestWithServoAngle(7500);
+            servoDict[ServoTag.LEFT_HIP_YAW].SetDestWithServoAngle(7500);
+            servoDict[ServoTag.RIGHT_HIP_YAW].SetDestWithServoAngle(7500);
+            servoDict[ServoTag.LEFT_HIP_ROLL].SetDestWithServoAngle(7530);
+            servoDict[ServoTag.RIGHT_HIP_ROLL].SetDestWithServoAngle(7470);
+            servoDict[ServoTag.LEFT_HIP_PITCH].SetDestWithServoAngle(8000);
+            servoDict[ServoTag.RIGHT_HIP_PITCH].SetDestWithServoAngle(7000);
+            servoDict[ServoTag.LEFT_KNEE].SetDestWithServoAngle(8500);
+            servoDict[ServoTag.RIGHT_KNEE].SetDestWithServoAngle(6500);
+            servoDict[ServoTag.LEFT_ANKLE_PITCH].SetDestWithServoAngle(6900);
+            servoDict[ServoTag.RIGHT_ANKLE_PITCH].SetDestWithServoAngle(8100);
+            servoDict[ServoTag.LEFT_ANKLE_ROLL].SetDestWithServoAngle(7520);
+            servoDict[ServoTag.RIGHT_ANKLE_ROLL].SetDestWithServoAngle(7480);
         }
 
         //servoDictを返す関数
@@ -227,15 +242,8 @@ namespace KHR_MayFes
             Dictionary<int, int> ret = new Dictionary<int, int>(d.Count);
             foreach (ServoTag s in servoDict.Keys)
             {
-                Debug.WriteLine("servo ID {0}", (int)s);
-                if (d[s].direction)
-                {
-                    ret.Add((int)s, d[s].toServoAngle(d[s].destAngle));
-                }
-                else
-                {
-                    ret.Add((int)s, d[s].toServoAngle(-d[s].destAngle));
-                }
+                Debug.WriteLine("servo ID {0} : {1}", (int)s, d[s].destAngle);
+                ret.Add((int)s, d[s].destAngle);
             }
             return ret;
         }
