@@ -19,9 +19,40 @@ namespace KHR_MayFes
 
     class MotionManager
     {
+        private MotionStatus currentStatus;
+        private MotionStatus oldStatus;
+
         public MotionManager()
         {
             //コンストラクタで必要そうなもの
+            currentStatus = MotionStatus.STOP;
+            oldStatus = MotionStatus.STOP;
+        }
+
+        /*
+         * 今の周期のサーボ指定角度を返す関数
+         * サーボの並びは
+         * WAIST = 0, //腰(回転方向不明)
+         * LEFT_HIP_YAW = 1, //左股間節ヨー方向回転
+         * RIGHT_HIP_YAW = 2, //右股間節ヨー方向回転
+         * LEFT_HIP_ROLL = 3, //左股関節ロール方向回転
+         * RIGHT_HIP_ROLL = 4, //右股関節ロール方向回転
+         * LEFT_HIP_PITCH = 5, //左股関節ピッチ方向回転
+         * RIGHT_HIP_PITCH = 6, //右股関節ピッチ方向回転
+         * LEFT_KNEE = 7, //左膝
+         * RIGHT_KNEE = 8, //右膝
+         * LEFT_ANKLE_PITCH = 9, //左足首ピッチ方向回転
+         * RIGHT_ANKLE_PITCH = 10, //右足首ピッチ方向回転
+         * LEFT_ANKLE_ROLL = 11, //左足首ロール方向回転
+         * RIGHT_ANKLE_ROLL = 12, //右足首ロール方向回転
+         */
+        public int[] GetLowerServoDests()
+        {
+            oldStatus = currentStatus;
+            currentStatus = GetMotionState();
+
+            int [] ret = {7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500};
+            return ret;
         }
 
         /*
@@ -36,8 +67,34 @@ namespace KHR_MayFes
          * 左に旋回：体を左後ろに倒す
          */ 
         private MotionStatus GetMotionState(){
-            //ここを実装してね☆
+            // Wiiバランスボードから重心のX Y座標を取得する関数
+            var position = GetWiiBBXY();
+            //TODO ここでモーションに変換
+
+            //暫定的に
             return MotionStatus.STOP;
         }
+
+        /*
+         * 二次元座標を表すためだけのアレ
+         * 中身のアレはWiiBB(バランスボード)の返し方のアレにアレ
+         */
+        struct Coord{
+            public double x;
+            public double y;
+        }
+
+        /*
+         * ココはWiiから重心座標を返す関数です、これを実装してね☆ ＞徳さん
+         */ 
+        private Coord GetWiiBBXY(){
+            var ret = new Coord();
+            //ここでWiiからアレがアレ
+            ret.x = 0.0;
+            ret.y = 0.0;
+            return ret;
+        }
+
+        
     }
 }

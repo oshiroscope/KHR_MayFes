@@ -89,6 +89,16 @@ namespace KHR_MayFes
         //サーボ角度によって直接目標値を設定
         public void SetDestWithServoAngle(int d)
         {
+            //下限より小さいときは下限にする
+            if (d < lowerLimit)
+            {
+                d = lowerLimit;
+            }
+            //上限より大きいときは上限にする
+            if (d > upperLimit)
+            {
+                d = upperLimit;
+            }
             destAngle = d;
         }
 
@@ -213,10 +223,16 @@ namespace KHR_MayFes
         /*
          * 下半身の歩行モーションを設定
          * 必ずID10以降のすべてのサーボのdestを指定すること
+         * \param lowerServoDests ID10以降のサーボの目標値を入れた配列 (サイズは13)
          */
-        public void SetLowerBody()
+        public void SetLowerBody(int[] lowerServoDests)
         {
-            servoDict[ServoTag.WAIST].SetDestWithServoAngle(7500);
+            servoDict[ServoTag.WAIST].SetDestWithServoAngle(lowerServoDests[0]);
+            for(int i = 1; i < 13; i++){ //マジックナンバー 13 : 下半身のサーボの数
+                servoDict[(ServoTag)i+9].SetDestWithServoAngle(lowerServoDests[i]);
+            }
+
+            /*servoDict[ServoTag.WAIST].SetDestWithServoAngle(7500);
             servoDict[ServoTag.LEFT_HIP_YAW].SetDestWithServoAngle(7500);
             servoDict[ServoTag.RIGHT_HIP_YAW].SetDestWithServoAngle(7500);
             servoDict[ServoTag.LEFT_HIP_ROLL].SetDestWithServoAngle(7530);
@@ -228,7 +244,7 @@ namespace KHR_MayFes
             servoDict[ServoTag.LEFT_ANKLE_PITCH].SetDestWithServoAngle(6900);
             servoDict[ServoTag.RIGHT_ANKLE_PITCH].SetDestWithServoAngle(8100);
             servoDict[ServoTag.LEFT_ANKLE_ROLL].SetDestWithServoAngle(7520);
-            servoDict[ServoTag.RIGHT_ANKLE_ROLL].SetDestWithServoAngle(7480);
+            servoDict[ServoTag.RIGHT_ANKLE_ROLL].SetDestWithServoAngle(7480);*/
         }
 
         //servoDictを返す関数

@@ -24,6 +24,7 @@ namespace KHR_MayFes
         private BoneManager boneManager;
         private ServoManager servoManager;
         private SerialPortManager serialPortManager;
+        private MotionManager motionManager;
 
         public MainWindow()
         {
@@ -31,6 +32,7 @@ namespace KHR_MayFes
             boneManager = new BoneManager();
             servoManager = new ServoManager();
             serialPortManager = new SerialPortManager();
+            motionManager = new MotionManager();
         }
 
         private void SetBody(Body body)
@@ -40,7 +42,7 @@ namespace KHR_MayFes
             //上半身をkinectの情報をもとに設定
             servoManager.SetUpperBody(boneManager.getBones());
             //下半身をモーションから設定
-            servoManager.SetLowerBody();
+            servoManager.SetLowerBody(motionManager.GetLowerServoDests());
             //サーボコマンド列を生成
             byte[] cmd = servoManager.generateCommand();
             serialPortManager.sendMessage(cmd);
