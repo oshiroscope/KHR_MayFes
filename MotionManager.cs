@@ -25,6 +25,7 @@ namespace KHR_MayFes
         private bool changeFlag;
         private bool finishFlag;
         private int frameCount;
+        private int positionID;
 
         public MotionManager()
         {
@@ -37,6 +38,9 @@ namespace KHR_MayFes
 
             changeFlag = false;
             finishFlag = true;
+
+            frameCount = 0;
+            positionID = 0;
         }
 
         /*
@@ -60,10 +64,10 @@ namespace KHR_MayFes
         {
             oldStatus = nextStatus;
             nextStatus = GetMotionState();
-            if (!changeFlag && currentStatus != nextStatus)
+            /*if (!changeFlag && currentStatus != nextStatus)
             {
                 changeFlag = true;
-            }
+            }*/
 
             if (finishFlag == true)
             {
@@ -74,6 +78,7 @@ namespace KHR_MayFes
             }
 
             frameCount++;
+
             return GetMotionDests(currentStatus);
         }
 
