@@ -17,16 +17,26 @@ namespace KHR_MayFes
         TURN_LEFT
     }
 
-    class MotionManager
+    public partial class MotionManager
     {
         private MotionStatus currentStatus;
         private MotionStatus oldStatus;
+        private MotionStatus nextStatus;
+        private bool changeFlag;
+        private bool finishFlag;
+        private int frameCount;
 
         public MotionManager()
         {
             //コンストラクタで必要そうなもの
+
+            //とりあえず最初は止まってるでしょう
             currentStatus = MotionStatus.STOP;
             oldStatus = MotionStatus.STOP;
+            nextStatus = MotionStatus.STOP;
+
+            changeFlag = false;
+            finishFlag = true;
         }
 
         /*
@@ -48,11 +58,23 @@ namespace KHR_MayFes
          */
         public int[] GetLowerServoDests()
         {
-            oldStatus = currentStatus;
-            currentStatus = GetMotionState();
+            oldStatus = nextStatus;
+            nextStatus = GetMotionState();
+            if (!changeFlag && currentStatus != nextStatus)
+            {
+                changeFlag = true;
+            }
 
-            int [] ret = {7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500, 7500};
-            return ret;
+            if (finishFlag == true)
+            {
+                finishFlag = false;
+                changeFlag = false;
+                frameCount = 0;
+                currentStatus = nextStatus;
+            }
+
+            frameCount++;
+            return GetMotionDests(currentStatus);
         }
 
         /*

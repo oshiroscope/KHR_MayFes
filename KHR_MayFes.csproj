@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CommandUtil.cs" />
+    <Compile Include="Motion.cs" />
     <Compile Include="MotionManager.cs" />
     <Compile Include="SerialPortManager.cs" />
     <Compile Include="ServoManager.cs" />
