@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using WiimoteLib;//wimote用
 
 namespace KHR_MayFes
 {
@@ -22,10 +24,16 @@ namespace KHR_MayFes
         private MotionStatus currentStatus;
         private MotionStatus oldStatus;
         private MotionStatus nextStatus;
+        private Coord vertex;
         private bool changeFlag;
         private bool finishFlag;
         private int frameCount;
         private int positionID;
+        private int wiiBBFrameCount;
+        private float weight; 
+        
+        //wiimoteのインスタンス
+        private Wiimote wm;
 
         public MotionManager()
         {
@@ -35,12 +43,19 @@ namespace KHR_MayFes
             currentStatus = MotionStatus.STOP;
             oldStatus = MotionStatus.STOP;
             nextStatus = MotionStatus.STOP;
-
+            wiiBBFrameCount = 0;
             changeFlag = false;
             finishFlag = true;
 
             frameCount = 0;
             positionID = 0;
+            weight = 0;
+            wm = new Wiimote();
+            //Wiimoteの接続
+            this.wm.Connect();
+            //イベント関数の登録
+            this.wm.WiimoteChanged += wm_WiimoteChanged;
+            
         }
 
         /*
@@ -64,6 +79,8 @@ namespace KHR_MayFes
         {
             oldStatus = nextStatus;
             nextStatus = GetMotionState();
+            Debug.WriteLine("vartex : {0} {1}", vertex.x, vertex.y);
+            Debug.WriteLine("MotionStatus : {0}", nextStatus);
             /*if (!changeFlag && currentStatus != nextStatus)
             {
                 changeFlag = true;
@@ -95,11 +112,25 @@ namespace KHR_MayFes
          */ 
         private MotionStatus GetMotionState(){
             // Wiiバランスボードから重心のX Y座標を取得する関数
-            var position = GetWiiBBXY();
             //TODO ここでモーションに変換
-
-            //暫定的に
-            return MotionStatus.STOP;
+            if (weight < 10) return MotionStatus.STOP;
+            if (vertex.x > 10) {
+                return MotionStatus.TURN_RIGHT;
+            }
+            else if (vertex.x < -10) {
+                return MotionStatus.TURN_LEFT;
+            }
+            else{
+                if (vertex.y > 5){
+                    return MotionStatus.WALK_BACKWARD;
+                }
+                else if (vertex.y < -5){
+                    return MotionStatus.WALK_FORWARD;
+                }
+                else{
+                    return MotionStatus.STOP;
+                }
+            }         
         }
 
         /*
@@ -111,17 +142,20 @@ namespace KHR_MayFes
             public double y;
         }
 
-        /*
-         * ココはWiiから重心座標を返す関数です、これを実装してね☆ ＞徳さん
-         */ 
-        private Coord GetWiiBBXY(){
-            var ret = new Coord();
-            //ここでWiiからアレがアレ
-            ret.x = 0.0;
-            ret.y = 0.0;
-            return ret;
-        }
+        void wm_WiimoteChanged(object sender, WiimoteChangedEventArgs args)
+        {
+            //WiimoteStateの値を取得
+            if (wiiBBFrameCount%10 == 0){
+                  WiimoteState ws = args.WiimoteState;
 
-        
+            //ここでWiiからアレがアレ
+                  vertex.x = ws.BalanceBoardState.CenterOfGravity.X;
+                  vertex.y = ws.BalanceBoardState.CenterOfGravity.Y;
+                  weight = ws.BalanceBoardState.WeightKg;
+                 // Debug.WriteLine("vartex : {0} {1}", vartex.x, vartex.y);
+            }
+            wiiBBFrameCount++;
+        }
+      
     }
 }

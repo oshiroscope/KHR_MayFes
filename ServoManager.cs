@@ -258,7 +258,7 @@ namespace KHR_MayFes
             Dictionary<int, int> ret = new Dictionary<int, int>(d.Count);
             foreach (ServoTag s in servoDict.Keys)
             {
-                Debug.WriteLine("servo ID {0} : {1}", (int)s, d[s].destAngle);
+                //Debug.WriteLine("servo ID {0} : {1}", (int)s, d[s].destAngle);
                 ret.Add((int)s, d[s].destAngle);
             }
             return ret;

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHR_MayFes", "KHR_MayFes.csproj", "{ABC4FB54-958D-4E26-92D1-FD6337A0ADB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiifitBB", "..\Visual Studio 2013\Projects\WiifitBB\WiifitBB\WiifitBB.csproj", "{C5A7F563-BBA5-407D-9CB7-B7B645A93376}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{ABC4FB54-958D-4E26-92D1-FD6337A0ADB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABC4FB54-958D-4E26-92D1-FD6337A0ADB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABC4FB54-958D-4E26-92D1-FD6337A0ADB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5A7F563-BBA5-407D-9CB7-B7B645A93376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5A7F563-BBA5-407D-9CB7-B7B645A93376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5A7F563-BBA5-407D-9CB7-B7B645A93376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5A7F563-BBA5-407D-9CB7-B7B645A93376}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
