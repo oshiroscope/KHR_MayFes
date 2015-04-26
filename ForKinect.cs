@@ -68,7 +68,7 @@ namespace KHR_MayFes
             //bodiesの更新
             UpdateBodyFrame(e);
 
-            if(loop_cnt % 10 == 0){
+            if(loop_cnt % 2 == 0){
                 //Bodyを用いて実際に命令を送る
                 foreach (var body in bodies.Where(b => b.IsTracked))
                 {

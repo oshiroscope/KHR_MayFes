@@ -154,14 +154,14 @@ namespace KHR_MayFes
             servoDict.Add(ServoTag.RIGHT_HIP_PITCH, new ServoData(true, 0));
             servoDict.Add(ServoTag.LEFT_HIP_YAW, new ServoData(true, 0));
             servoDict.Add(ServoTag.RIGHT_HIP_YAW, new ServoData(true, 0));
-            servoDict.Add(ServoTag.LEFT_HIP_ROLL, new ServoData(true, 0, 7500, 7900));
-            servoDict.Add(ServoTag.RIGHT_HIP_ROLL, new ServoData(true, 0, 7100, 7500));
+            servoDict.Add(ServoTag.LEFT_HIP_ROLL, new ServoData(true, 30, 7100, 8000));
+            servoDict.Add(ServoTag.RIGHT_HIP_ROLL, new ServoData(true, -30, 7100, 8000));
             servoDict.Add(ServoTag.LEFT_KNEE, new ServoData(true, 0));
             servoDict.Add(ServoTag.RIGHT_KNEE, new ServoData(true, 0));
             servoDict.Add(ServoTag.LEFT_ANKLE_PITCH, new ServoData(true, 0));
             servoDict.Add(ServoTag.RIGHT_ANKLE_PITCH, new ServoData(true, 0));
-            servoDict.Add(ServoTag.LEFT_ANKLE_ROLL, new ServoData(true, 0, 7500, 7900));
-            servoDict.Add(ServoTag.RIGHT_ANKLE_ROLL, new ServoData(true, 0, 7100, 7500));
+            servoDict.Add(ServoTag.LEFT_ANKLE_ROLL, new ServoData(true, 20, 7100, 8000));
+            servoDict.Add(ServoTag.RIGHT_ANKLE_ROLL, new ServoData(true, -20, 7100, 8000));
         }
 
         //二つのBoneの角度として設定できるサーボはこいつで設定する
@@ -227,6 +227,10 @@ namespace KHR_MayFes
          */
         public void SetLowerBody(int[] lowerServoDests)
         {
+            for (int i = 0; i < 13; i++)
+            {
+                Debug.WriteLine("lower servo {0} {1}", i, lowerServoDests[i]);
+            }
             servoDict[ServoTag.WAIST].SetDestWithServoAngle(lowerServoDests[0]);
             for(int i = 1; i < 13; i++){ //マジックナンバー 13 : 下半身のサーボの数
                 servoDict[(ServoTag)i+9].SetDestWithServoAngle(lowerServoDests[i]);

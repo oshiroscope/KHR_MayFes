@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace KHR_MayFes
 {
@@ -44,21 +45,22 @@ namespace KHR_MayFes
 
         int[] AddTrim(int[] posVals)
         {
-            posVals[0] += 7500;
-            posVals[1] += 7500;
-            posVals[2] += 7500;
-            posVals[3] += 7530;
-            posVals[4] += 7470;
-            posVals[5] += 8000;
-            posVals[6] += 7000;
-            posVals[7] += 8500;
-            posVals[8] += 6500;
-            posVals[9] += 6900;
-            posVals[10] += 8100;
-            posVals[11] += 7520;
-            posVals[12] += 7480;
+            var ret = new int[13];
+            ret[0] = posVals[0] + 7500;
+            ret[1] = posVals[1] + 7500;
+            ret[2] = posVals[2] + 7500;
+            ret[3] = posVals[3] + 7530;
+            ret[4] = posVals[4] + 7470;
+            ret[5] = posVals[5] + 8000;
+            ret[6] = posVals[6] + 7000;
+            ret[7] = posVals[7] + 8500;
+            ret[8] = posVals[8] + 6500;
+            ret[9] = posVals[9] + 6900;
+            ret[10] = posVals[10] + 8100;
+            ret[11] = posVals[11] + 7520;
+            ret[12] = posVals[12] + 7480;
 
-            return posVals;
+            return ret;
         }
 
         /*
@@ -71,7 +73,9 @@ namespace KHR_MayFes
             double ratio = (double)frameCount / (double)frames[nextID];
             for (int i = 0; i < 13; i++)
             {
+                Debug.WriteLine("dest now next : {0} {1}", dests[nowID][i], dests[nextID][i]);
                 ret[i] = (int)((double)dests[nowID][i] + ratio * (double)(dests[nextID][i] - dests[nowID][i]));
+                //Debug.WriteLine("dest now next : {0} {1} {2}", dests[nowID][i], dests[nextID][i], ret[i]);
             }
             return ret;
         }
@@ -86,7 +90,8 @@ namespace KHR_MayFes
                 positionID = nextID;
                 return dests[nextID];
             }
-            return InterPolatePositions(dests, frames, 0, 1);
+            Debug.WriteLine("frame ratio : {0} / {1}", frameCount, frames[nextID]);
+            return InterPolatePositions(dests, frames, nowID, nextID);
         }
 
         //frameCount(経過フレーム数)から計算する感じです
@@ -98,7 +103,7 @@ namespace KHR_MayFes
         }
 
         private int[] WALK_FORWARD_FRAMES = {
-                                                //posFirst : 0
+                                                /*//posFirst : 0
                                                 0,
                                                 //pos13 : 1
                                                 20,
@@ -125,10 +130,65 @@ namespace KHR_MayFes
                                                 //pos44 : 12
                                                 15,
                                                 //pos1Fin : 13
-                                                30
+                                                30//posFirst : 0
+                                                0,
+                                                //pos13 : 1
+                                                20,
+                                                //pos45 : 2
+                                                12,
+                                                //pos7 : 3
+                                                17,
+                                                //pos9 : 4
+                                                20,
+                                                //pos33 : 5
+                                                20,
+                                                //pos0 : 6
+                                                12,
+                                                //pos8 : 7
+                                                17,
+                                                //pos22 : 8 
+                                                20,
+                                                //pos4 : 9
+                                                20,
+                                                //pos1 : 10
+                                                12,
+                                                //pos43 : 11
+                                                15,
+                                                //pos44 : 12
+                                                15,
+                                                //pos1Fin : 13
+                                                30*/
+                                                //posFirst : 0
+                                                0,
+                                                //pos13 : 1
+                                                5,
+                                                //pos45 : 2
+                                                3,
+                                                //pos7 : 3
+                                                4,
+                                                //pos9 : 4
+                                                5,
+                                                //pos33 : 5
+                                                5,
+                                                //pos0 : 6
+                                                3,
+                                                //pos8 : 7
+                                                4,
+                                                //pos22 : 8 
+                                                5,
+                                                //pos4 : 9
+                                                5,
+                                                //pos1 : 10
+                                                3,
+                                                //pos43 : 11
+                                                4,
+                                                //pos44 : 12
+                                                4,
+                                                //pos1Fin : 13
+                                                7
                                             };
 
-        private int[][] WALK_FORWARD_DESTS = {
+        private static readonly int[][] WALK_FORWARD_DESTS = {
                                            //posFirst : 0
                                            new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                            //pos13 : 1
@@ -161,6 +221,7 @@ namespace KHR_MayFes
             
         private int[] GetWALK_FORWARDDests()
         {
+            Debug.WriteLine("postion ID {0}", positionID);
             //frameCountが現在のpositionIDのframe数に到達していない場合は、線形補完した値を使う
             switch (positionID)
             {
@@ -251,3 +312,4 @@ namespace KHR_MayFes
         }
     }
 }
+

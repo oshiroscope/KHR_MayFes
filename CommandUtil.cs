@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Rcb4;
 
 namespace KHR_MayFes
@@ -40,6 +41,10 @@ namespace KHR_MayFes
          */ 
         public static byte[] SeriesServoMove(Dictionary<int, int> dest, int frame)
         {
+            for(int i = 0; i < dest.Count; i++){
+                Debug.WriteLine("Servo id, dest : {0} {1}", i, dest[i]);
+            }
+
             int cnt = dest.Count();
             byte size = (byte)(8 + 2 * cnt + 1);
             byte[] cmd = new byte[size];

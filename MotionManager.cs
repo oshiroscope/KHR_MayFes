@@ -30,7 +30,7 @@ namespace KHR_MayFes
         private int frameCount;
         private int positionID;
         private int wiiBBFrameCount;
-        private float weight; 
+        private float weight;
         
         //wiimoteのインスタンス
         private Wiimote wm;
@@ -112,7 +112,11 @@ namespace KHR_MayFes
          */ 
         private MotionStatus GetMotionState(){
             // Wiiバランスボードから重心のX Y座標を取得する関数
+
             //TODO ここでモーションに変換
+
+            return MotionStatus.WALK_FORWARD;
+
             if (weight < 10) return MotionStatus.STOP;
             if (vertex.x > 10) {
                 return MotionStatus.TURN_RIGHT;
