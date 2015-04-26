@@ -13,37 +13,37 @@ namespace KHR_MayFes
                                                 //posFirst : 0
                                                 0,
                                                 //pos13 : 1
-                                                20,
+                                                5,
                                                 //pos43 : 2
-                                                7,
+                                                2,
                                                 //pos45 : 3
-                                                12,
+                                                3,
                                                 //pos3 : 4
-                                                8,
+                                                2,
                                                 //pos7 : 5
-                                                17,
+                                                4,
                                                 //pos9 : 6
-                                                20,
+                                                5,
                                                 //pos33 : 7
-                                                20,
+                                                5,
                                                 //pos0 : 8 
-                                                12,
+                                                3,
                                                 //pos5 : 9
-                                                8,
+                                                2,
                                                 //pos8 : 10
-                                                17,
+                                                4,
                                                 //pos22 : 11
-                                                20,
+                                                5,
                                                 //pos4 : 12
-                                                20,
+                                                5,
                                                 //pos1 : 13
-                                                12,
+                                                3,
                                                 //pos43 : 14
-                                                15,
+                                                4,
                                                 //pos44 : 15
-                                                15,
+                                                4,
                                                 //pos1Fin : 16
-                                                30
+                                                7
                                             };
 
         private static readonly int[][] WALK_BACKWARD_DESTS = {
@@ -102,7 +102,7 @@ namespace KHR_MayFes
                 case 6:
                     return NormalTransition(WALK_BACKWARD_DESTS, WALK_BACKWARD_FRAMES, 6, 7);
                 case 7:
-                    if (frameCount == 0 && currentStatus != nextStatus)
+                    if (frameCount == 1 && currentStatus != nextStatus)
                     {
                         changeFlag = true;
                     }
@@ -124,7 +124,7 @@ namespace KHR_MayFes
                 case 11:
                     return NormalTransition(WALK_BACKWARD_DESTS, WALK_BACKWARD_FRAMES, 11, 12);
                 case 12:
-                    if (frameCount == 0 && currentStatus != nextStatus)
+                    if (frameCount == 1 && currentStatus != nextStatus)
                     {
                         changeFlag = true;
                     }
@@ -144,6 +144,7 @@ namespace KHR_MayFes
                 case 15:
                     return NormalTransition(WALK_BACKWARD_DESTS, WALK_BACKWARD_FRAMES, 15, 16);
                 case 16:
+                    positionID = 0;
                     finishFlag = true;
                     return WALK_BACKWARD_DESTS[16];
             }

@@ -89,7 +89,7 @@ namespace KHR_MayFes
                 case 4:
                     return NormalTransition(WALK_FORWARD_DESTS, WALK_FORWARD_FRAMES, 4, 5);
                 case 5:
-                    if (frameCount == 0 && currentStatus != nextStatus)
+                    if (frameCount == 1 && currentStatus != nextStatus)
                     {
                         changeFlag = true;
                     }
@@ -109,7 +109,7 @@ namespace KHR_MayFes
                 case 8:
                     return NormalTransition(WALK_FORWARD_DESTS, WALK_FORWARD_FRAMES, 8, 9);
                 case 9:
-                    if (frameCount == 0 && currentStatus != nextStatus)
+                    if (frameCount == 1 && currentStatus != nextStatus)
                     {
                         changeFlag = true;
                     }
@@ -129,6 +129,7 @@ namespace KHR_MayFes
                 case 12:
                     return NormalTransition(WALK_FORWARD_DESTS, WALK_FORWARD_FRAMES, 12, 13);
                 case 13:
+                    positionID = 0;
                     finishFlag = true;
                     return WALK_FORWARD_DESTS[13];
             }

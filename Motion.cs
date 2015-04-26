@@ -51,8 +51,10 @@ namespace KHR_MayFes
             ret[2] = posVals[2] + 7500;
             ret[3] = posVals[3] + 7530;
             ret[4] = posVals[4] + 7470;
-            ret[5] = posVals[5] + 8000;
-            ret[6] = posVals[6] + 7000;
+            //ret[5] = posVals[5] + 8000;
+            //ret[6] = posVals[6] + 7000;
+            ret[5] = posVals[5] + 7700;
+            ret[6] = posVals[6] + 7300;
             ret[7] = posVals[7] + 8500;
             ret[8] = posVals[8] + 6500;
             ret[9] = posVals[9] + 6900;
@@ -73,7 +75,7 @@ namespace KHR_MayFes
             double ratio = (double)frameCount / (double)frames[nextID];
             for (int i = 0; i < 13; i++)
             {
-                Debug.WriteLine("dest now next : {0} {1}", dests[nowID][i], dests[nextID][i]);
+                //Debug.WriteLine("dest now next : {0} {1}", dests[nowID][i], dests[nextID][i]);
                 ret[i] = (int)((double)dests[nowID][i] + ratio * (double)(dests[nextID][i] - dests[nowID][i]));
                 //Debug.WriteLine("dest now next : {0} {1} {2}", dests[nowID][i], dests[nextID][i], ret[i]);
             }
@@ -90,7 +92,7 @@ namespace KHR_MayFes
                 positionID = nextID;
                 return dests[nextID];
             }
-            Debug.WriteLine("frame ratio : {0} / {1}", frameCount, frames[nextID]);
+            //Debug.WriteLine("frame ratio : {0} / {1}", frameCount, frames[nextID]);
             return InterPolatePositions(dests, frames, nowID, nextID);
         }
 

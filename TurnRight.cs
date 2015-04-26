@@ -14,15 +14,15 @@ namespace KHR_MayFes
                                                    //posFirst : 0
                                                    0,
                                                    //pos12 : 1
-                                                   6,
+                                                   3,
                                                    //pos1 : 2
-                                                   8,
+                                                   4,
                                                    //pos2 : 3
-                                                   6,
+                                                   4,
                                                    //pos3 : 4
-                                                   8,
+                                                   4,
                                                    //pos4 : 5
-                                                   8
+                                                   4
                                               };
 
         private static readonly int[][] TURN_RIGHT_DESTS = {
@@ -52,20 +52,21 @@ namespace KHR_MayFes
                 case 3:
                     return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 3, 4);
                 case 4:
-                    if (frameCount == 0 && currentStatus != nextStatus)
+                    if (frameCount == 1 && currentStatus != nextStatus)
                     {
                         changeFlag = true;
                     }
 
                     if (changeFlag)
                     {
-                        return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 4, 1);
+                        return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 4, 5);
                     }
                     else
                     {
-                        return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 4, 5);
+                        return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 4, 1);
                     }
                 case 5:
+                    positionID = 0;
                     finishFlag = true;
                     return TURN_RIGHT_DESTS[5];
             }
