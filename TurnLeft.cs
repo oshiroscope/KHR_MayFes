@@ -22,7 +22,9 @@ namespace KHR_MayFes
                                                    //pos3 : 4
                                                    4,
                                                    //pos4 : 5
-                                                   4
+                                                   4,
+                                                   //posFin : 6
+                                                   8,
                                               };
 
         private static readonly int[][] TURN_LEFT_DESTS = {
@@ -38,7 +40,10 @@ namespace KHR_MayFes
                                                                 new int[]{0, 0, 0, -100, -100, 550, -1000, 1100, -2000, -700, 1000, -100, -150},
                                                                 //pos4 : 5
                                                                 new int[]{0, 0, 0, 0, 0, 500, -500, 1000, -1000, -600, 600, 0, 0},
-                                                            };
+                                                                //posFin : 6
+                                                                new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                          };
+
         private int[] GetTURN_LEFTDests()
         {
             switch (positionID)
@@ -66,9 +71,11 @@ namespace KHR_MayFes
                         return NormalTransition(TURN_LEFT_DESTS, TURN_LEFT_FRAMES, 4, 1);
                     }
                 case 5:
+                    return NormalTransition(TURN_LEFT_DESTS, TURN_LEFT_FRAMES, 5, 6);
+                case 6:
                     positionID = 0;
                     finishFlag = true;
-                    return TURN_LEFT_DESTS[5];
+                    return TURN_LEFT_DESTS[6];
             }
 
             //positionID

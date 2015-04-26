@@ -22,7 +22,9 @@ namespace KHR_MayFes
                                                    //pos3 : 4
                                                    4,
                                                    //pos4 : 5
-                                                   4
+                                                   4,
+                                                   //posFin : 6
+                                                   8
                                               };
 
         private static readonly int[][] TURN_RIGHT_DESTS = {
@@ -35,10 +37,12 @@ namespace KHR_MayFes
                                                                 //pos2 : 3
                                                                 new int[]{0, 450, -600, 100, 100, 500, -500, 1000, -1000, -650, 650, 100, 100},
                                                                 //pos3 : 4
-                                                                new int[]{0, 0, 0, 100, 100, 1000, -550, 2000, -1100, -1000, 700, 100, 100},
+                                                                new int[]{0, 0, 0, 100, 100, 1000, -550, 2000, -1100, -1000, 700, 150, 100},
                                                                 //pos4 : 5
                                                                 new int[]{0, 0, 0, 0, 0, 500, -500, 1000, -1000, -600, 600, 0, 0},
-                                                            };
+                                                                //posFin : 6
+                                                                new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                           };
         private int[] GetTURN_RIGHTDests()
         {
             switch (positionID)
@@ -66,9 +70,11 @@ namespace KHR_MayFes
                         return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 4, 1);
                     }
                 case 5:
+                        return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 5, 6);
+                case 6:
                     positionID = 0;
                     finishFlag = true;
-                    return TURN_RIGHT_DESTS[5];
+                    return TURN_RIGHT_DESTS[6];
             }
 
             //positionID
