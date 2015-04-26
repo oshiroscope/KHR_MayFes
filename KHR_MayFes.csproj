@@ -68,6 +68,10 @@
     <Compile Include="MotionManager.cs" />
     <Compile Include="SerialPortManager.cs" />
     <Compile Include="ServoManager.cs" />
+    <Compile Include="TurnLeft.cs" />
+    <Compile Include="TurnRight.cs" />
+    <Compile Include="WalikBackward.cs" />
+    <Compile Include="WalkForward.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -11,61 +11,6 @@ namespace KHR_MayFes
     {
         
         private int[] WALK_FORWARD_FRAMES = {
-                                                /*//posFirst : 0
-                                                0,
-                                                //pos13 : 1
-                                                20,
-                                                //pos45 : 2
-                                                12,
-                                                //pos7 : 3
-                                                17,
-                                                //pos9 : 4
-                                                20,
-                                                //pos33 : 5
-                                                20,
-                                                //pos0 : 6
-                                                12,
-                                                //pos8 : 7
-                                                17,
-                                                //pos22 : 8 
-                                                20,
-                                                //pos4 : 9
-                                                20,
-                                                //pos1 : 10
-                                                12,
-                                                //pos43 : 11
-                                                15,
-                                                //pos44 : 12
-                                                15,
-                                                //pos1Fin : 13
-                                                30//posFirst : 0
-                                                0,
-                                                //pos13 : 1
-                                                20,
-                                                //pos45 : 2
-                                                12,
-                                                //pos7 : 3
-                                                17,
-                                                //pos9 : 4
-                                                20,
-                                                //pos33 : 5
-                                                20,
-                                                //pos0 : 6
-                                                12,
-                                                //pos8 : 7
-                                                17,
-                                                //pos22 : 8 
-                                                20,
-                                                //pos4 : 9
-                                                20,
-                                                //pos1 : 10
-                                                12,
-                                                //pos43 : 11
-                                                15,
-                                                //pos44 : 12
-                                                15,
-                                                //pos1Fin : 13
-                                                30*/
                                                 //posFirst : 0
                                                 0,
                                                 //pos13 : 1
