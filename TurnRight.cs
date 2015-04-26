@@ -9,9 +9,69 @@ namespace KHR_MayFes
 {
     public partial class MotionManager
     {
+
+        private int[] TURN_RIGHT_FRAMES = {
+                                                   //posFirst : 0
+                                                   0,
+                                                   //pos12 : 1
+                                                   6,
+                                                   //pos1 : 2
+                                                   8,
+                                                   //pos2 : 3
+                                                   6,
+                                                   //pos3 : 4
+                                                   8,
+                                                   //pos4 : 5
+                                                   8
+                                              };
+
+        private static readonly int[][] TURN_RIGHT_DESTS = {
+                                                                //posfirst : 0
+                                                                new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                                //pos12 : 1
+                                                                new int[]{0, 0, 0, -50, -100, 500, -500, 1000, -1000, -650, 650, -50,-100},
+                                                                //pos1 : 2
+                                                                new int[]{0, 150, -450, 0, -150, 500, -1000, 1000, -2000, -650, 1000, 0, -250},
+                                                                //pos2 : 3
+                                                                new int[]{0, 450, -600, 100, 100, 500, -500, 1000, -1000, -650, 650, 100, 100},
+                                                                //pos3 : 4
+                                                                new int[]{0, 0, 0, 100, 100, 1000, -550, 2000, -1100, -1000, 700, 100, 100},
+                                                                //pos4 : 5
+                                                                new int[]{0, 0, 0, 0, 0, 500, -500, 1000, -1000, -600, 600, 0, 0},
+                                                            };
         private int[] GetTURN_RIGHTDests()
         {
-            int[] ret = { 7500, 7500, 7500, 7530, 7470, 8000, 7000, 8500, 6500, 6900, 8100, 7520, 7480 };
+            switch (positionID)
+            {
+                case 0:
+                    return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 0, 1);
+                case 1:
+                    return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 1, 2);
+                case 2:
+                    return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 2, 3);
+                case 3:
+                    return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 3, 4);
+                case 4:
+                    if (frameCount == 0 && currentStatus != nextStatus)
+                    {
+                        changeFlag = true;
+                    }
+
+                    if (changeFlag)
+                    {
+                        return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 4, 1);
+                    }
+                    else
+                    {
+                        return NormalTransition(TURN_RIGHT_DESTS, TURN_RIGHT_FRAMES, 4, 5);
+                    }
+                case 5:
+                    finishFlag = true;
+                    return TURN_RIGHT_DESTS[5];
+            }
+
+            //positionID
+            int[] ret = TURN_RIGHT_DESTS[0];
             return ret;
         }
     }
