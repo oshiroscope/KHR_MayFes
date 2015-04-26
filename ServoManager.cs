@@ -227,10 +227,10 @@ namespace KHR_MayFes
          */
         public void SetLowerBody(int[] lowerServoDests)
         {
-            for (int i = 0; i < 13; i++)
+            /*for (int i = 0; i < 13; i++)
             {
                 Debug.WriteLine("lower servo {0} {1}", i, lowerServoDests[i]);
-            }
+            }*/
             servoDict[ServoTag.WAIST].SetDestWithServoAngle(lowerServoDests[0]);
             for(int i = 1; i < 13; i++){ //マジックナンバー 13 : 下半身のサーボの数
                 servoDict[(ServoTag)i+9].SetDestWithServoAngle(lowerServoDests[i]);

@@ -41,9 +41,10 @@ namespace KHR_MayFes
          */ 
         public static byte[] SeriesServoMove(Dictionary<int, int> dest, int frame)
         {
-            for(int i = 0; i < dest.Count; i++){
+            /*for (int i = 0; i < dest.Count; i++)
+            {
                 Debug.WriteLine("Servo id, dest : {0} {1}", i, dest[i]);
-            }
+            }*/
 
             int cnt = dest.Count();
             byte size = (byte)(8 + 2 * cnt + 1);

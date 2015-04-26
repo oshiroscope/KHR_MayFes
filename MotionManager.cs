@@ -79,6 +79,12 @@ namespace KHR_MayFes
         {
             oldStatus = nextStatus;
             nextStatus = GetMotionState();
+
+            if (oldStatus == MotionStatus.STOP && nextStatus != MotionStatus.STOP)
+            {
+                finishFlag = true;
+            }
+
             Debug.WriteLine("vartex : {0} {1}", vertex.x, vertex.y);
             Debug.WriteLine("MotionStatus : {0}", nextStatus);
             /*if (!changeFlag && currentStatus != nextStatus)
@@ -115,8 +121,16 @@ namespace KHR_MayFes
 
             //TODO ここでモーションに変換
 
-            return MotionStatus.WALK_FORWARD;
+            if (vertex.y < -5)
+            {
+                return MotionStatus.WALK_FORWARD;
+            }
+            else
+            {
+                return MotionStatus.STOP;
+            }
 
+        
             if (weight < 10) return MotionStatus.STOP;
             if (vertex.x > 10) {
                 return MotionStatus.TURN_RIGHT;

@@ -73,7 +73,7 @@ namespace KHR_MayFes
             double ratio = (double)frameCount / (double)frames[nextID];
             for (int i = 0; i < 13; i++)
             {
-                Debug.WriteLine("dest now next : {0} {1}", dests[nowID][i], dests[nextID][i]);
+                //Debug.WriteLine("dest now next : {0} {1}", dests[nowID][i], dests[nextID][i]);
                 ret[i] = (int)((double)dests[nowID][i] + ratio * (double)(dests[nextID][i] - dests[nowID][i]));
                 //Debug.WriteLine("dest now next : {0} {1} {2}", dests[nowID][i], dests[nextID][i], ret[i]);
             }
@@ -90,7 +90,7 @@ namespace KHR_MayFes
                 positionID = nextID;
                 return dests[nextID];
             }
-            Debug.WriteLine("frame ratio : {0} / {1}", frameCount, frames[nextID]);
+            //Debug.WriteLine("frame ratio : {0} / {1}", frameCount, frames[nextID]);
             return InterPolatePositions(dests, frames, nowID, nextID);
         }
 
@@ -236,6 +236,7 @@ namespace KHR_MayFes
                 case 4:
                     return NormalTransition(WALK_FORWARD_DESTS, WALK_FORWARD_FRAMES, 4, 5);
                 case 5:
+                    Debug.WriteLine("current {0} next {1}", currentStatus, nextStatus);
                     if(frameCount == 0 && currentStatus != nextStatus){
                         changeFlag = true;
                     }
@@ -254,7 +255,9 @@ namespace KHR_MayFes
                 case 8:
                     return NormalTransition(WALK_FORWARD_DESTS, WALK_FORWARD_FRAMES, 8, 9);
                 case 9:
-                    if(frameCount == 0 && currentStatus != nextStatus){
+                    Debug.WriteLine("current {0} next {1} framecount {2}", currentStatus, nextStatus, frameCount);
+                    if(frameCount == 1 && currentStatus != nextStatus){
+                        Debug.WriteLine("change the flag");
                         changeFlag = true;
                     }
 
@@ -273,6 +276,7 @@ namespace KHR_MayFes
                     return NormalTransition(WALK_FORWARD_DESTS, WALK_FORWARD_FRAMES, 12, 13);
                 case 13:
                     finishFlag = true;
+                    positionID = 0;
                     return WALK_FORWARD_DESTS[13];
             }
 
