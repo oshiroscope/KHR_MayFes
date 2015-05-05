@@ -140,32 +140,28 @@ namespace KHR_MayFes
         public ServoManager()
         {
             servoDict = new Dictionary<ServoTag, ServoData>();
-            servoDict.Add(ServoTag.NECK, new ServoData(true, 0, 6800, 8200));
-            servoDict.Add(ServoTag.WAIST, new ServoData(true, 0, 5500, 9500));
-            servoDict.Add(ServoTag.LEFT_SHOULDER_PITCH, new ServoData(true, -1350));
-            servoDict.Add(ServoTag.RIGHT_SHOULDER_PITCH, new ServoData(false, 900));
-            servoDict.Add(ServoTag.LEFT_SHOULDER_ROLL, new ServoData(true, -3500, 7500, 12800, -10));
-            servoDict.Add(ServoTag.RIGHT_SHOULDER_ROLL, new ServoData(false, 3500, 2200, 7500, -10));
-            //servoDict.Add(ServoTag.LEFT_SHOULDER_ROLL, new ServoData(true, -2650, 7500, 12800, -10));
-            //servoDict.Add(ServoTag.RIGHT_SHOULDER_ROLL, new ServoData(false, 2650, 2200, 7500, -10));
-            servoDict.Add(ServoTag.LEFT_SHOULDER_YAW, new ServoData(false, 0));
-            servoDict.Add(ServoTag.RIGHT_SHOULDER_YAW, new ServoData(true, 0));
-            servoDict.Add(ServoTag.LEFT_ELBOW, new ServoData(false, 3500, 3800, 8400));
-            servoDict.Add(ServoTag.RIGHT_ELBOW, new ServoData(true, -3500, 6600, 11200));
-            //servoDict.Add(ServoTag.LEFT_ELBOW, new ServoData(false, 2650, 3800, 8400));
-            //servoDict.Add(ServoTag.RIGHT_ELBOW, new ServoData(true, -2650, 6600, 11200));
-            servoDict.Add(ServoTag.LEFT_HIP_PITCH, new ServoData(true, 0));
-            servoDict.Add(ServoTag.RIGHT_HIP_PITCH, new ServoData(true, 0));
-            servoDict.Add(ServoTag.LEFT_HIP_YAW, new ServoData(true, 0));
-            servoDict.Add(ServoTag.RIGHT_HIP_YAW, new ServoData(true, 0));
-            servoDict.Add(ServoTag.LEFT_HIP_ROLL, new ServoData(true, 30, 7100, 8000));
-            servoDict.Add(ServoTag.RIGHT_HIP_ROLL, new ServoData(true, -30, 7100, 8000));
-            servoDict.Add(ServoTag.LEFT_KNEE, new ServoData(true, 0));
-            servoDict.Add(ServoTag.RIGHT_KNEE, new ServoData(true, 0));
-            servoDict.Add(ServoTag.LEFT_ANKLE_PITCH, new ServoData(true, 0));
-            servoDict.Add(ServoTag.RIGHT_ANKLE_PITCH, new ServoData(true, 0));
-            servoDict.Add(ServoTag.LEFT_ANKLE_ROLL, new ServoData(true, 20, 7100, 8000));
-            servoDict.Add(ServoTag.RIGHT_ANKLE_ROLL, new ServoData(true, -20, 7100, 8000));
+            servoDict.Add(ServoTag.NECK, new ServoData(true, 0, 6970, 7950));
+            servoDict.Add(ServoTag.WAIST, new ServoData(true, 0, 7030, 8070));
+            servoDict.Add(ServoTag.LEFT_SHOULDER_PITCH, new ServoData(true, -1350, 7200, 10200));
+            servoDict.Add(ServoTag.RIGHT_SHOULDER_PITCH, new ServoData(false, 900, 4800, 7800));
+            servoDict.Add(ServoTag.LEFT_SHOULDER_ROLL, new ServoData(true, -2650, 6820, 10200, -10));
+            servoDict.Add(ServoTag.RIGHT_SHOULDER_ROLL, new ServoData(false, 2650, 4800, 8180, -10));
+            servoDict.Add(ServoTag.LEFT_SHOULDER_YAW, new ServoData(false, 0, 6170, 8170));
+            servoDict.Add(ServoTag.RIGHT_SHOULDER_YAW, new ServoData(true, 0, 8830, 6830));
+            servoDict.Add(ServoTag.LEFT_ELBOW, new ServoData(false, 2650, 4900, 7545));
+            servoDict.Add(ServoTag.RIGHT_ELBOW, new ServoData(true, -2650, 7545, 10100));
+            servoDict.Add(ServoTag.LEFT_HIP_PITCH, new ServoData(true, 0, 7250, 8700));
+            servoDict.Add(ServoTag.RIGHT_HIP_PITCH, new ServoData(true, 0, 6300, 7750));
+            servoDict.Add(ServoTag.LEFT_HIP_YAW, new ServoData(true, 0, 7650, 8100));
+            servoDict.Add(ServoTag.RIGHT_HIP_YAW, new ServoData(true, 0, 6900, 7350));
+            servoDict.Add(ServoTag.LEFT_HIP_ROLL, new ServoData(true, 30, 7250, 7900));
+            servoDict.Add(ServoTag.RIGHT_HIP_ROLL, new ServoData(true, -30, 7100, 7750));
+            servoDict.Add(ServoTag.LEFT_KNEE, new ServoData(true, 0, 8200, 9800));
+            servoDict.Add(ServoTag.RIGHT_KNEE, new ServoData(true, 0, 5200, 6800));
+            servoDict.Add(ServoTag.LEFT_ANKLE_PITCH, new ServoData(true, 0, 6200, 7650));
+            servoDict.Add(ServoTag.RIGHT_ANKLE_PITCH, new ServoData(true, 0, 7350, 8800));
+            servoDict.Add(ServoTag.LEFT_ANKLE_ROLL, new ServoData(true, 20, 7200, 7950));
+            servoDict.Add(ServoTag.RIGHT_ANKLE_ROLL, new ServoData(true, -20, 7050, 7800));
         }
 
         //二つのBoneの角度として設定できるサーボはこいつで設定する
