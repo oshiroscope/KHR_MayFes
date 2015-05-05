@@ -144,12 +144,16 @@ namespace KHR_MayFes
             servoDict.Add(ServoTag.WAIST, new ServoData(true, 0, 5500, 9500));
             servoDict.Add(ServoTag.LEFT_SHOULDER_PITCH, new ServoData(true, -1350));
             servoDict.Add(ServoTag.RIGHT_SHOULDER_PITCH, new ServoData(false, 900));
-            servoDict.Add(ServoTag.LEFT_SHOULDER_ROLL, new ServoData(true, -2650, 7500, 12800, -10));
-            servoDict.Add(ServoTag.RIGHT_SHOULDER_ROLL, new ServoData(false, 2650, 2200, 7500, -10));
+            servoDict.Add(ServoTag.LEFT_SHOULDER_ROLL, new ServoData(true, -3500, 7500, 12800, -10));
+            servoDict.Add(ServoTag.RIGHT_SHOULDER_ROLL, new ServoData(false, 3500, 2200, 7500, -10));
+            //servoDict.Add(ServoTag.LEFT_SHOULDER_ROLL, new ServoData(true, -2650, 7500, 12800, -10));
+            //servoDict.Add(ServoTag.RIGHT_SHOULDER_ROLL, new ServoData(false, 2650, 2200, 7500, -10));
             servoDict.Add(ServoTag.LEFT_SHOULDER_YAW, new ServoData(false, 0));
             servoDict.Add(ServoTag.RIGHT_SHOULDER_YAW, new ServoData(true, 0));
-            servoDict.Add(ServoTag.LEFT_ELBOW, new ServoData(false, 2650, 3800, 8400));
-            servoDict.Add(ServoTag.RIGHT_ELBOW, new ServoData(true, -2650, 6600, 11200));
+            servoDict.Add(ServoTag.LEFT_ELBOW, new ServoData(false, 3500, 3800, 8400));
+            servoDict.Add(ServoTag.RIGHT_ELBOW, new ServoData(true, -3500, 6600, 11200));
+            //servoDict.Add(ServoTag.LEFT_ELBOW, new ServoData(false, 2650, 3800, 8400));
+            //servoDict.Add(ServoTag.RIGHT_ELBOW, new ServoData(true, -2650, 6600, 11200));
             servoDict.Add(ServoTag.LEFT_HIP_PITCH, new ServoData(true, 0));
             servoDict.Add(ServoTag.RIGHT_HIP_PITCH, new ServoData(true, 0));
             servoDict.Add(ServoTag.LEFT_HIP_YAW, new ServoData(true, 0));
@@ -218,6 +222,11 @@ namespace KHR_MayFes
             Vector3D normWristLeft = elbowWristLeftNorm - Vector3D.DotProduct(elbowWristLeftNorm, shoulderElbowLeftNormalized) * shoulderElbowLeftNormalized;
             servoDict[ServoTag.LEFT_SHOULDER_YAW].SetDestWithDegree(Vector3D.AngleBetween(normWristLeft, normLeft) - 90);
 
+
+            servoDict[ServoTag.LEFT_ELBOW].destAngle -= 500;
+            servoDict[ServoTag.RIGHT_ELBOW].destAngle += 500;
+            servoDict[ServoTag.LEFT_SHOULDER_ROLL].destAngle -= 500;
+            servoDict[ServoTag.RIGHT_SHOULDER_ROLL].destAngle += 500;
         }
 
         /*
@@ -270,7 +279,7 @@ namespace KHR_MayFes
 
         public byte[] generateCommand()
         {
-            byte[] cmd = CommandUtil.SeriesServoMove(servoToDest(servoDict), 25);
+            byte[] cmd = CommandUtil.SeriesServoMove(servoToDest(servoDict),15 );
             return cmd;
         }
     }
