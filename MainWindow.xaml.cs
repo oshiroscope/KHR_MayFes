@@ -33,7 +33,7 @@ namespace KHR_MayFes
             boneManager = new BoneManager();
             servoManager = new ServoManager();
             serialPortManager = new SerialPortManager();
-            motionManager = new MotionManager(/*ref serialPortManager*/);
+            motionManager = new MotionManager(ref serialPortManager);
         }
 
         private void SetBody(Body body)

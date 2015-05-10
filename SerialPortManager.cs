@@ -19,7 +19,7 @@ namespace KHR_MayFes
         //城のPCではいつもCOM5なので暫定的に決め打ち
         public SerialPortManager()
         {
-            MyPort = new SerialPort("COM5", 115200, Parity.Even, 8, StopBits.One);
+            MyPort = new SerialPort("COM3", 115200, Parity.Even, 8, StopBits.One);
             MyPort.ReadTimeout = 1000;
         }
 
