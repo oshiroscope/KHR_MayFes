@@ -33,7 +33,7 @@ namespace KHR_MayFes
             boneManager = new BoneManager();
             servoManager = new ServoManager();
             serialPortManager = new SerialPortManager();
-            motionManager = new MotionManager();
+            motionManager = new MotionManager(/*ref serialPortManager*/);
         }
 
         private void SetBody(Body body)
@@ -65,7 +65,7 @@ namespace KHR_MayFes
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            
         }
 
     }
