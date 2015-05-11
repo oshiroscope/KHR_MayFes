@@ -147,13 +147,15 @@ namespace KHR_MayFes
             servoDict.Add(ServoTag.LEFT_SHOULDER_ROLL, new ServoData(true, -2650, 6820, 10200, -10));
             servoDict.Add(ServoTag.RIGHT_SHOULDER_ROLL, new ServoData(false, 2650, 4800, 8180, -10));
             servoDict.Add(ServoTag.LEFT_SHOULDER_YAW, new ServoData(false, 0, 6170, 8170));
-            servoDict.Add(ServoTag.RIGHT_SHOULDER_YAW, new ServoData(true, 0, 8830, 6830));
+            servoDict.Add(ServoTag.RIGHT_SHOULDER_YAW, new ServoData(true, 0, 6830, 8830));
             servoDict.Add(ServoTag.LEFT_ELBOW, new ServoData(false, 2650, 4900, 7545));
             servoDict.Add(ServoTag.RIGHT_ELBOW, new ServoData(true, -2650, 7545, 10100));
             servoDict.Add(ServoTag.LEFT_HIP_PITCH, new ServoData(true, 0, 7250, 8700));
             servoDict.Add(ServoTag.RIGHT_HIP_PITCH, new ServoData(true, 0, 6300, 7750));
-            servoDict.Add(ServoTag.LEFT_HIP_YAW, new ServoData(true, 0, 7650, 8100));
-            servoDict.Add(ServoTag.RIGHT_HIP_YAW, new ServoData(true, 0, 6900, 7350));
+            //servoDict.Add(ServoTag.LEFT_HIP_YAW, new ServoData(true, 0, 7650, 8100));
+            servoDict.Add(ServoTag.LEFT_HIP_YAW, new ServoData(true, 0, 7500, 8100));
+            //servoDict.Add(ServoTag.RIGHT_HIP_YAW, new ServoData(true, 0, 6900, 7350));
+            servoDict.Add(ServoTag.RIGHT_HIP_YAW, new ServoData(true, 0, 6900, 7500));
             servoDict.Add(ServoTag.LEFT_HIP_ROLL, new ServoData(true, 30, 7250, 7900));
             servoDict.Add(ServoTag.RIGHT_HIP_ROLL, new ServoData(true, -30, 7100, 7750));
             servoDict.Add(ServoTag.LEFT_KNEE, new ServoData(true, 0, 8200, 9800));
