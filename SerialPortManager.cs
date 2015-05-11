@@ -12,14 +12,14 @@ namespace KHR_MayFes
     /*
      * シリアルポートの設定、入出力を請負うクラス
      */ 
-    class SerialPortManager
+    public class SerialPortManager
     {
-        private SerialPort MyPort;
+        public SerialPort MyPort;
 
         //城のPCではいつもCOM5なので暫定的に決め打ち
         public SerialPortManager()
         {
-            MyPort = new SerialPort("COM5", 115200, Parity.Even, 8, StopBits.One);
+            MyPort = new SerialPort("COM3", 115200, Parity.Even, 8, StopBits.One);
             MyPort.ReadTimeout = 1000;
         }
 
@@ -34,6 +34,19 @@ namespace KHR_MayFes
                 return e.Message;
             }
             return "connected!";
+        }
+
+        //シリアルポートを閉じる
+        public string Close(){
+            try{
+                if (MyPort.IsOpen){
+                    MyPort.Close();
+                }
+            }
+            catch (Exception e){
+                return e.Message; 
+            }
+            return "disconnected";
         }
 
         //コマンドを送る

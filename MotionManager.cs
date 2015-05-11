@@ -31,11 +31,11 @@ namespace KHR_MayFes
         private int positionID;
         private int wiiBBFrameCount;
         private float weight;
-        
+        private SerialPortManager spm;
         //wiimoteのインスタンス
         private Wiimote wm;
 
-        public MotionManager()
+        /*internal*/public MotionManager(ref SerialPortManager sp)
         {
             //コンストラクタで必要そうなもの
 
@@ -46,7 +46,9 @@ namespace KHR_MayFes
             wiiBBFrameCount = 0;
             changeFlag = false;
             finishFlag = true;
-
+            //sp.Open();
+            //Debug.WriteLine("spmyport={0}", sp.MyPort.IsOpen);
+            spm = sp;
             frameCount = 0;
             positionID = 0;
             weight = 0;
@@ -129,9 +131,20 @@ namespace KHR_MayFes
             {
                 return MotionStatus.STOP;
             }*/
-
-        
-            if (weight < 10) return MotionStatus.STOP;
+            Debug.WriteLine("myport={0}", spm.MyPort.IsOpen);
+            if (weight < 10)
+            {
+                if (spm.MyPort.IsOpen)
+                {
+                    spm.Close();
+                }
+                Debug.WriteLine("{0}<10",weight);
+                return MotionStatus.STOP;
+            }
+            else{
+                if (!spm.MyPort.IsOpen)spm.Open();
+                Debug.WriteLine("Open");
+            }
 
             if (vertex.x > 10) {
                 return MotionStatus.TURN_RIGHT;
