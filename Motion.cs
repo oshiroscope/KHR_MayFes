@@ -46,6 +46,7 @@ namespace KHR_MayFes
         int[] AddTrim(int[] posVals)
         {
             var ret = new int[13];
+            /*
             ret[0] = posVals[0] + 7500;
             ret[1] = posVals[1] + 7500;
             ret[2] = posVals[2] + 7500;
@@ -64,7 +65,22 @@ namespace KHR_MayFes
             ret[10] = posVals[10] + 8100;
             ret[11] = posVals[11] + 7520;
             ret[12] = posVals[12] + 7480;
-
+            */
+            
+            ret[0] = posVals[0] + 7500;
+            ret[1] = posVals[1] + 7500;
+            ret[2] = posVals[2] + 7500;
+            ret[3] = posVals[3] + 7500;
+            ret[4] = posVals[4] + 7500;
+            ret[5] = posVals[5] + 7500;
+            ret[6] = posVals[6] + 7500;
+            ret[7] = posVals[7] + 7500;
+            ret[8] = posVals[8] + 7500;
+            ret[9] = posVals[9] + 7500;
+            ret[10] = posVals[10] + 7500;
+            ret[11] = posVals[11] + 7500;
+            ret[12] = posVals[12] + 7500;
+            
             return ret;
         }
 
@@ -78,9 +94,9 @@ namespace KHR_MayFes
             double ratio = (double)frameCount / (double)frames[nextID];
             for (int i = 0; i < 13; i++)
             {
-                //Debug.WriteLine("dest now next : {0} {1}", dests[nowID][i], dests[nextID][i]);
-                ret[i] = (int)((double)dests[nowID][i] + ratio * (double)(dests[nextID][i] - dests[nowID][i]));
-                //Debug.WriteLine("dest now next : {0} {1} {2}", dests[nowID][i], dests[nextID][i], ret[i]);
+                //Debug.WriteLine("dest now next : {0} {1} {2}", dests[nowID][i], dests[nextID][i], ret[i]);                //Debug.WriteLine("dest now next : {0} {1} {2}", dests[nowID][i], dests[nextID][i], ret[i]);
+                //ret[i] = (int)((double)dests[nowID][i] + ratio * (double)(dests[nextID][i] - dests[nowID][i]));
+                ret[i] = dests[nextID][i];
             }
             return ret;
         }
