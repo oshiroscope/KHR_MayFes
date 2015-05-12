@@ -158,8 +158,10 @@ namespace KHR_MayFes
             servoDict.Add(ServoTag.RIGHT_HIP_YAW, new ServoData(true, 0, 6900, 7500));
             servoDict.Add(ServoTag.LEFT_HIP_ROLL, new ServoData(true, 30, 7250, 7900));
             servoDict.Add(ServoTag.RIGHT_HIP_ROLL, new ServoData(true, -30, 7100, 7750));
-            servoDict.Add(ServoTag.LEFT_KNEE, new ServoData(true, 0, 8200, 9800));
-            servoDict.Add(ServoTag.RIGHT_KNEE, new ServoData(true, 0, 5200, 6800));
+            //servoDict.Add(ServoTag.LEFT_KNEE, new ServoData(true, 0, 8200, 9800));
+            servoDict.Add(ServoTag.LEFT_KNEE, new ServoData(true, 0, 7500, 9800));
+            //servoDict.Add(ServoTag.RIGHT_KNEE, new ServoData(true, 0, 5200, 6800);)
+            servoDict.Add(ServoTag.RIGHT_KNEE, new ServoData(true, 0, 5200, 7500));
             servoDict.Add(ServoTag.LEFT_ANKLE_PITCH, new ServoData(true, 0, 6200, 7650));
             servoDict.Add(ServoTag.RIGHT_ANKLE_PITCH, new ServoData(true, 0, 7350, 8800));
             servoDict.Add(ServoTag.LEFT_ANKLE_ROLL, new ServoData(true, 20, 7200, 7950));
@@ -242,20 +244,6 @@ namespace KHR_MayFes
             for(int i = 1; i < 13; i++){ //マジックナンバー 13 : 下半身のサーボの数
                 servoDict[(ServoTag)i+9].SetDestWithServoAngle(lowerServoDests[i]);
             }
-
-            /*servoDict[ServoTag.WAIST].SetDestWithServoAngle(7500);
-            servoDict[ServoTag.LEFT_HIP_YAW].SetDestWithServoAngle(7500);
-            servoDict[ServoTag.RIGHT_HIP_YAW].SetDestWithServoAngle(7500);
-            servoDict[ServoTag.LEFT_HIP_ROLL].SetDestWithServoAngle(7530);
-            servoDict[ServoTag.RIGHT_HIP_ROLL].SetDestWithServoAngle(7470);
-            servoDict[ServoTag.LEFT_HIP_PITCH].SetDestWithServoAngle(8000);
-            servoDict[ServoTag.RIGHT_HIP_PITCH].SetDestWithServoAngle(7000);
-            servoDict[ServoTag.LEFT_KNEE].SetDestWithServoAngle(8500);
-            servoDict[ServoTag.RIGHT_KNEE].SetDestWithServoAngle(6500);
-            servoDict[ServoTag.LEFT_ANKLE_PITCH].SetDestWithServoAngle(6900);
-            servoDict[ServoTag.RIGHT_ANKLE_PITCH].SetDestWithServoAngle(8100);
-            servoDict[ServoTag.LEFT_ANKLE_ROLL].SetDestWithServoAngle(7520);
-            servoDict[ServoTag.RIGHT_ANKLE_ROLL].SetDestWithServoAngle(7480);*/
         }
 
         //servoDictを返す関数
