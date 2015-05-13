@@ -82,7 +82,7 @@ namespace KHR_MayFes
             oldStatus = nextStatus;
             nextStatus = GetMotionState();
 
-            if (oldStatus == MotionStatus.STOP && nextStatus != MotionStatus.STOP)
+            if (currentStatus == MotionStatus.STOP && oldStatus == MotionStatus.STOP && nextStatus != MotionStatus.STOP)
             {
                 finishFlag = true;
             }
