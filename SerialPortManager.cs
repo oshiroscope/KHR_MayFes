@@ -36,6 +36,11 @@ namespace KHR_MayFes
             return "connected!";
         }
 
+        public bool isOpen()
+        {
+            return MyPort.IsOpen;
+        }
+
         //シリアルポートを閉じる
         public string Close(){
             try{
@@ -61,6 +66,13 @@ namespace KHR_MayFes
                 byte[] rx = new byte[4];
                 Command.Synchronize(MyPort, msg, ref rx);   
             }
+        }
+
+        public byte[] readADC()
+        {
+            byte[] rx = new byte[7];
+            Command.Synchronize(MyPort, Command.MoveRamToCom(0x0028, 0x04), ref rx);
+            return rx;
         }
     }
 }

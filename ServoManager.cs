@@ -246,6 +246,16 @@ namespace KHR_MayFes
             }
         }
 
+        /*
+         * 全身の目標角度を設定
+         */
+        public void SetWholeBody(int[] servoDests)
+        {
+            for(int i = 0; i < 22; i++){ //マジックナンバー 22
+                servoDict[(ServoTag)i].SetDestWithServoAngle(servoDests[i]);
+            }
+        }
+
         //servoDictを返す関数
         public Dictionary<ServoTag, ServoData> getServo()
         {

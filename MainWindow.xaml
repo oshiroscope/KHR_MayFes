@@ -12,20 +12,7 @@
             <Button Name="ConnectButton" Click="ConnectButtonClicked" Margin="0,0,442,0">Connect</Button>
             <TextBlock x:Name="StatusText"/>
             <TextBlock x:Name="SerialMessage"/>
-            <TextBlock x:Name="RightElbow"/>
-            <TextBlock x:Name="LeftElbow"/>
-            <TextBlock x:Name="RightShoulderPitch"/>
-            <TextBlock x:Name="LeftShoulderPitch"/>
-            <TextBlock x:Name="RightShoulderRoll"/>
-            <TextBlock x:Name="LeftShoulderRoll"/>
-            <TextBlock x:Name="RightShoulderYaw"/>
-            <TextBlock x:Name="LeftShoulderYaw"/>
-            <TextBlock x:Name="RightHipRoll"/>
-            <TextBlock x:Name="LeftHipRoll"/>
-            <TextBlock x:Name="RightAnkleYaw"/>
-            <TextBlock x:Name="LeftAnkleYaw"/>
-            <TextBlock x:Name="Waist"/>
-            <TextBlock x:Name="Neck"/>    
+            <TextBlock x:Name="XAxis"/>
         </StackPanel>
     </Grid>
 </Window>

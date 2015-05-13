@@ -26,6 +26,7 @@ namespace KHR_MayFes
         private ServoManager servoManager;
         private SerialPortManager serialPortManager;
         private MotionManager motionManager;
+        private GettingUp gettingUp;
 
         public MainWindow()
         {
@@ -34,19 +35,90 @@ namespace KHR_MayFes
             servoManager = new ServoManager();
             serialPortManager = new SerialPortManager();
             motionManager = new MotionManager(ref serialPortManager);
+            gettingUp = new GettingUp();
         }
+
+        private FallingStatus fallingStatus = FallingStatus.STANDING;
 
         private void SetBody(Body body)
         {
-            //boneManagerにセット
-            boneManager.setBones(body.Joints);
-            //上半身をkinectの情報をもとに設定
-            servoManager.SetUpperBody(boneManager.getBones());
-            //下半身をモーションから設定
-            servoManager.SetLowerBody(motionManager.GetLowerServoDests());
-            //サーボコマンド列を生成
-            byte[] cmd = servoManager.generateCommand();
-            serialPortManager.sendMessage(cmd);
+            if (!gettingUp.isGettingUp())
+            {
+                if (serialPortManager.isOpen()) {
+                    fallingStatus = getFallingStatus();
+                    switch (fallingStatus)
+                    {
+                        case FallingStatus.ONBACK:
+                            gettingUp.start();
+                            break;
+                        case FallingStatus.ONFACE:
+                            gettingUp.start();
+                            break;
+                        case FallingStatus.STANDING:
+                        //boneManagerにセット
+                        boneManager.setBones(body.Joints);
+                        //上半身をkinectの情報をもとに設定
+                        servoManager.SetUpperBody(boneManager.getBones());
+                        //下半身をモーションから設定
+                        servoManager.SetLowerBody(motionManager.GetLowerServoDests());
+                        //サーボコマンド列を生成
+                        byte[] cmd = servoManager.generateCommand();
+                        serialPortManager.sendMessage(cmd);
+                        break;
+                    }
+                }
+                else
+                {
+                    //boneManagerにセット
+                    boneManager.setBones(body.Joints);
+                    //上半身をkinectの情報をもとに設定
+                    servoManager.SetUpperBody(boneManager.getBones());
+                    //下半身をモーションから設定
+                    servoManager.SetLowerBody(motionManager.GetLowerServoDests());
+                    //サーボコマンド列を生成
+                    byte[] cmd = servoManager.generateCommand();
+                    serialPortManager.sendMessage(cmd);
+                }
+            }
+            else
+            {
+                switch (fallingStatus)
+                {
+                    case FallingStatus.ONFACE:
+                        servoManager.SetWholeBody(gettingUp.FromOnFace());
+                        byte[] cmd = servoManager.generateCommand();
+                        serialPortManager.sendMessage(cmd);
+                        break;
+                    case FallingStatus.ONBACK:
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private enum FallingStatus{
+            STANDING,
+            ONBACK,//仰向け
+            ONFACE //うつぶせ
+        };
+
+        private FallingStatus getFallingStatus()
+        {
+            byte[] recv = serialPortManager.readADC();
+            int xAxis = ((int)(recv[3]) * 256 + (int)(recv[2]));
+            XAxis.Text = "XAxis :" + xAxis.ToString();
+            if (xAxis > 380)
+            {
+                return FallingStatus.ONFACE;
+            }
+            else if (xAxis < 180)
+            {
+                return FallingStatus.ONBACK;
+            }
+            else
+            {
+                return FallingStatus.STANDING;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
