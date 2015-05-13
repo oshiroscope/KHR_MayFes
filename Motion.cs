@@ -72,8 +72,10 @@ namespace KHR_MayFes
             ret[2] = posVals[2] + 7500;
             ret[3] = posVals[3] + 7500;
             ret[4] = posVals[4] + 7500;
-            ret[5] = posVals[5] + 7500;
-            ret[6] = posVals[6] + 7500;
+            //ret[5] = posVals[5] + 7500;
+            ret[5] = posVals[5] + 7300;
+            //ret[6] = posVals[6] + 7500;
+            ret[6] = posVals[6] + 7700;
             ret[7] = posVals[7] + 7500;
             ret[8] = posVals[8] + 7500;
             ret[9] = posVals[9] + 7500;
